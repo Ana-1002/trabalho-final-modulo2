@@ -90,7 +90,7 @@ public class User {
                 "\n name =\t\t'" + name + '\'' +
                 "\n email =\t'" + email + '\'' +
                 "\n password =\t'" + password + '\'' +
-                "\n type =\t\t" + type +
+                "\n type =\t\t" + (this.isPerson() ? "Person (" : "Institution (") + type + ')' +
                 "\n document =\t'" + document + '\'' +
                 "\n}";
     }
