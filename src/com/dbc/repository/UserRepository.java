@@ -169,4 +169,42 @@ public class UserRepository implements Repository<Integer, User> {
         }
         return users;
     }
+
+    public boolean userAlreadyExists(User user) throws SQLException {
+        Connection conn = null;
+        try {
+            conn = ConnectionDB.getConnection();
+            Statement stmt = conn.createStatement();
+
+            //testa email (geral)
+                //exception d email
+            String sql = "SELECT * FROM USERS WHERE email = " + user.getEmail();
+
+            //testa cpf (only)
+                //exception d cpf
+            if (user.isPerson()){
+                String sql = "SELECT * FROM USERS WHERE type = 1 AND document = " + user.getDocument();
+            }
+
+            //testa cnpj (only)
+                //exception d cnpj
+            if (user.isInstitution()) {
+                String sql = "SELECT * FROM USERS WHERE type = 2 AND document = " + user.getDocument();
+            }
+
+            ResultSet res = stmt.executeQuery(sql);
+
+            return res.first();
+        } catch (SQLException e) {
+            throw new SQLException(e.getCause());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
