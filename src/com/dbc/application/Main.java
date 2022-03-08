@@ -1,15 +1,5 @@
 package com.dbc.application;
 
-import com.dbc.entities.BankAccount;
-import com.dbc.entities.Donate;
-import com.dbc.entities.Request;
-import com.dbc.entities.user.Institution;
-import com.dbc.entities.user.Person;
-import com.dbc.entities.user.User;
-import com.dbc.enums.Categories;
-
-import java.util.Scanner;
-
 public class Main {
 
     public static void main(String[] args) {
