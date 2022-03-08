@@ -154,7 +154,7 @@ public class RequestRepository implements Repository<Integer, Request> {
                 request.setDescription(res.getString("request_description"));
                 request.setAccount(new BankAccountRepository().getBankAccountById(res.getInt("id_bank_account")));
                 request.setCategory(new CategoryRepository().getCategoryById(res.getInt("id_category")));
-                request.setUser(null);
+                request.setUser(new UserRepository().getUserById(res.getInt("id_user")));
                 request.setGoal(res.getDouble("goal"));
                 request.setReachedValue(res.getDouble("reached_value"));
 
