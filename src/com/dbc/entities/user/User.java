@@ -1,40 +1,28 @@
 package com.dbc.entities.user;
 
-import com.dbc.entities.Request;
-import com.dbc.interfaces.Crud;
-import java.util.ArrayList;
-
-public abstract class User implements Crud {
-    private Integer id;
-    private String name, email;
-    private ArrayList<Request> myRequestsList = new ArrayList<>();
-
-    private static ArrayList<User> userDB = new ArrayList<>();
-    private static Integer count = 0;
+public abstract class User {
+    private Integer idUser;
+    private String name;
+    private String email;
+    private String password;
+    private Boolean isPerson = true;
+    private String document;
 
     public User(){}
-    public User(String name, String email) {
-        this.setId(count++);
+    public User(String name, String email, String password, Boolean isPerson, String document) {
         this.setName(name);
         this.setEmail(email);
-        userDB.add(this);
+        this.setPassword(password);
+        this.setIsPerson(isPerson);
+        this.setDocument(document);
     }
 
-
-    public ArrayList<Request> getMyRequestsList() {
-        return myRequestsList;
+    public Integer getIdUser() {
+        return idUser;
     }
 
-    public void setMyRequestsList(Request request) {
-        this.myRequestsList.add(request);
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
     }
 
     public String getName() {
@@ -53,59 +41,27 @@ public abstract class User implements Crud {
         this.email = email;
     }
 
-    public Request createNewRequest () {
-        return null;
+    public String getPassword() {
+        return password;
     }
 
-    public static ArrayList<User> getUserDB() {
-        return userDB;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    @Override
-    public String toString() {
-        if (getUserById(this.getId()) instanceof Person){
-           return userToPerson(this.getId()).toString();
-
-        } else if (getUserById(this.getId()) instanceof Institution) {
-            return userToInstitution(this.getId()).toString();
-
-        } else {
-            return "User{" +
-                    "id=" + id +
-                    ", name='" + name + '\'' +
-                    ", email='" + email + '\'' +
-                    ", myRequestsList=" + myRequestsList +
-                    '}';
-        }
+    public Boolean getIsPerson() {
+        return isPerson;
     }
 
-    public static void listPrint (){
-        for (User user :
-                getUserDB()) {
-            System.out.println(user.getId() + " - " + user.getName());
-        }
+    public void setIsPerson(Boolean person) {
+        isPerson = person;
     }
 
-    public static User getUserById (Integer id) {
-        for (User user : getUserDB()) {
-            if (user.getId().equals(id)){
-                return user;
-            }
-        }
-        return null;
+    public String getDocument() {
+        return document;
     }
 
-    public Institution userToInstitution (Integer id) {
-        if (getUserById(id) instanceof Institution) {
-            return (Institution) getUserById(id);
-        }
-        return null;
-    }
-
-    public Person userToPerson(Integer id) {
-        if (getUserById(id) instanceof Institution) {
-            return (Person) getUserById(id);
-        }
-        return null;
+    public void setDocument(String document) {
+        this.document = document;
     }
 }
