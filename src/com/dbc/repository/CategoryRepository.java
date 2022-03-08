@@ -138,11 +138,12 @@ public class CategoryRepository implements Repository<Integer, Category> {
                 Category category = new Category();
                 category.setIdCategory(res.getInt("id_category"));
                 category.setName(res.getString("name"));
-                category.setDescription(res.getString("description"));
+                category.setDescription(res.getString("category_description"));
 
                 categories.add(category);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new SQLException(e.getCause());
         } finally {
             try {
