@@ -53,7 +53,7 @@ public class Request {
     }
 
     public void setReachedValue(Double reachedValue) {
-        this.reachedValue = reachedValue;
+        this.reachedValue = 0.0;
     }
 
     public Categories getCategory() {
