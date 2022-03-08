@@ -13,7 +13,7 @@ public class CategoryService {
 
     public void addCategory(Category category) {
         try {
-            if (categoryRepository.nameAlreadyExists(category.getName())) {
+            if (categoryRepository.nameAlreadyExists(category.getName().toLowerCase())) {
                 throw new Exception("Nome de categoria já existente!");
             }
 

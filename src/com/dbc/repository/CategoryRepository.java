@@ -161,7 +161,7 @@ public class CategoryRepository implements Repository<Integer, Category> {
 
             Statement stmt = conn.createStatement();
 
-            String sql = "SELECT * FROM CATEGORY WHERE name = " + name;
+            String sql = "SELECT * FROM CATEGORY WHERE LOWER(name) = " + name;
 
             ResultSet res = stmt.executeQuery(sql);
 
