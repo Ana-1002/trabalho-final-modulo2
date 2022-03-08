@@ -153,4 +153,29 @@ public class CategoryRepository implements Repository<Integer, Category> {
         }
         return categories;
     }
+
+    public boolean nameAlreadyExists(String name) throws SQLException {
+        Connection conn = null;
+        try {
+            conn = ConnectionDB.getConnection();
+
+            Statement stmt = conn.createStatement();
+
+            String sql = "SELECT * FROM CATEGORY WHERE LOWER(name) = " + name;
+
+            ResultSet res = stmt.executeQuery(sql);
+
+            return res.first();
+        } catch (SQLException e) {
+            throw new SQLException(e.getCause());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
