@@ -143,7 +143,7 @@ public class DonateRepository implements Repository<Integer, Donate> {
 
             Statement stmt = conn.createStatement();
 
-            String sql = "SELECT * DONATE";
+            String sql = "SELECT * from DONATE";
 
             ResultSet res = stmt.executeQuery(sql);
 
@@ -155,7 +155,6 @@ public class DonateRepository implements Repository<Integer, Donate> {
                 donate.setDonator_email(res.getString("donator_email"));
                 donate.setDonate_value(res.getDouble("donate_value"));
                 donate.setDescription(res.getString("description"));
-
 
                 donates.add(donate);
             }
