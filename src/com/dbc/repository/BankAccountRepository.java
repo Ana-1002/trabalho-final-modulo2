@@ -64,7 +64,7 @@ public class BankAccountRepository implements Repository<Integer, BankAccount> {
         try {
             con = ConnectionDB.getConnection();
 
-            String sql = "DELETE FROM PESSOA WHERE id_bank_account = ?";
+            String sql = "DELETE FROM BANK_ACCOUNT WHERE id_bank_account = ?";
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -95,7 +95,7 @@ public class BankAccountRepository implements Repository<Integer, BankAccount> {
             con = ConnectionDB.getConnection();
 
             StringBuilder sql = new StringBuilder();
-            sql.append("UPDATE DONATE SET ");
+            sql.append("UPDATE BANK_ACCOUNT SET ");
             sql.append(" ID_BANK_ACCOUNT = ?,");
             sql.append(" ACCOUNT_NUMBER = ?,");
             sql.append(" AGENCY = ? ,");
@@ -134,14 +134,14 @@ public class BankAccountRepository implements Repository<Integer, BankAccount> {
 
             Statement stmt = conn.createStatement();
 
-            String sql = "SELECT * BANK_ACCOUNT";
+            String sql = "SELECT * FROM BANK_ACCOUNT";
 
             ResultSet res = stmt.executeQuery(sql);
 
             while (res.next()) {
                 BankAccount bank_account = new BankAccount();
                 bank_account.setId_bank_account(res.getInt("id_bank_account"));
-                bank_account.setAccount_number(res.getString("account"));
+                bank_account.setAccount_number(res.getString("account_number"));
                 bank_account.setAgency(res.getString("agency"));
 
                 bank_accounts.add(bank_account);
@@ -158,5 +158,40 @@ public class BankAccountRepository implements Repository<Integer, BankAccount> {
             }
         }
         return bank_accounts;
+    }
+
+    public BankAccount getBankAccountById(Integer id) throws SQLException {
+        Connection conn = null;
+        try {
+            conn = ConnectionDB.getConnection();
+
+            Statement stmt = conn.createStatement();
+
+            String sql = "SELECT * FROM BANK_ACCOUNT WHERE id_bank_account = " + id;
+
+            ResultSet res = stmt.executeQuery(sql);
+
+            while (res.next()) {
+                BankAccount account = new BankAccount();
+                account.setId_bank_account(res.getInt("id_bank_account"));
+                account.setAccount_number(res.getString("account_number"));
+                account.setAgency(res.getString("agency"));
+
+                return account;
+            }
+
+
+        } catch (SQLException e) {
+            throw new SQLException(e.getCause());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 }
