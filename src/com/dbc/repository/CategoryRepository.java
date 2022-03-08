@@ -130,7 +130,7 @@ public class CategoryRepository implements Repository<Integer, Category> {
 
             Statement stmt = conn.createStatement();
 
-            String sql = "SELECT * CATEGORY";
+            String sql = "SELECT * FROM CATEGORY";
 
             ResultSet res = stmt.executeQuery(sql);
 
@@ -168,6 +168,38 @@ public class CategoryRepository implements Repository<Integer, Category> {
             ResultSet res = stmt.executeQuery(sql);
 
             return res.first();
+        } catch (SQLException e) {
+            throw new SQLException(e.getCause());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public Category getCategoryById(Integer id) throws SQLException {
+        Connection conn = null;
+        try {
+            conn = ConnectionDB.getConnection();
+
+            Statement stmt = conn.createStatement();
+
+            String sql = "SELECT * FROM CATEGORY WHERE id_category = " + id;
+
+            ResultSet res = stmt.executeQuery(sql);
+
+            while (res.next()) {
+                Category category = new Category();
+                category.setIdCategory(res.getInt("id_category"));
+                category.setName(res.getString("name"));
+                category.setDescription(res.getString("description"));
+
+                return category;
+            }
         } catch (SQLException e) {
             throw new SQLException(e.getCause());
         } finally {
