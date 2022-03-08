@@ -1,17 +1,16 @@
 package com.dbc.repository;
 
+import com.dbc.entities.BankAccount;
 import com.dbc.entities.Donate;
-import com.dbc.entities.Request;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DonateRepository implements Repository<Integer, Donate> {
-
+public class BankAccountRepository implements Repository<Integer, BankAccount> {
     @Override
     public Integer getNextId(Connection connection) throws SQLException {
-        String sql = "SELECT DONATOR_PROJECT.donate_seq.nextval mysequence FROM DUAL";
+        String sql = "SELECT DONATOR_PROJECT.bank_account_seq.nextval mysequence FROM DUAL";
 
         Statement stmt = connection.createStatement();
         ResultSet res = stmt.executeQuery(sql);
@@ -24,30 +23,28 @@ public class DonateRepository implements Repository<Integer, Donate> {
     }
 
     @Override
-    public Donate add(Donate donate) throws SQLException {
+    public BankAccount add(BankAccount bank_account) throws SQLException {
         Connection con = null;
         try {
             con = ConnectionDB.getConnection();
 
             Integer nextId = this.getNextId(con);
-            donate.setId_donate(nextId);
+            bank_account.setId_bank_account(nextId);
 
-            String sql = "INSERT INTO DONATE\n" +
-                    "(ID_DONATE, ID_REQUEST, DONATOR_NOME, DONATOR_EMAIL, DONATOR_VALUE, DONATOR_DESCRIPTION)\n" +
-                    "VALUES(?, ?, ?, ?, ?, ?)\n";
+            String sql = "INSERT INTO BANK_ACCOUNT\n" +
+                    "(ID_BANK_ACCOUNT, ACCOUNT_NUMBER, AGENCY)\n" +
+                    "VALUES(?, ?, ?)\n";
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setInt(1, donate.getId_donate());
-            stmt.setInt(2, donate.getRequest().getIdRequest());
-            stmt.setString(3, donate.getDonator_name());
-            stmt.setString(4, donate.getDonator_email());
-            stmt.setDouble(5, donate.getDonate_value());
-            stmt.setString(6, donate.getDescription());
+            stmt.setInt(1, bank_account.getId_bank_account());
+            stmt.setString(2, bank_account.getAccount_number());
+            stmt.setString(3, bank_account.getAgency());
+
 
             int res = stmt.executeUpdate();
             System.out.println("adicionarDonate.res=" + res);
-            return donate;
+            return bank_account;
         } catch (SQLException e) {
             throw new SQLException(e.getCause());
         } finally {
@@ -67,7 +64,7 @@ public class DonateRepository implements Repository<Integer, Donate> {
         try {
             con = ConnectionDB.getConnection();
 
-            String sql = "DELETE FROM PESSOA WHERE id_donate = ?";
+            String sql = "DELETE FROM PESSOA WHERE id_bank_account = ?";
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -75,7 +72,7 @@ public class DonateRepository implements Repository<Integer, Donate> {
 
             // Executa-se a consulta
             int res = stmt.executeUpdate();
-            System.out.println("removerDonatePorId.res=" + res);
+            System.out.println("removerBank_AccountPorId.res=" + res);
 
             return res > 0;
         } catch (SQLException e) {
@@ -92,33 +89,27 @@ public class DonateRepository implements Repository<Integer, Donate> {
     }
 
     @Override
-    public boolean update(Integer id, Donate donate) throws SQLException {
+    public boolean update(Integer id, BankAccount bank_account) throws SQLException {
         Connection con = null;
         try {
             con = ConnectionDB.getConnection();
 
             StringBuilder sql = new StringBuilder();
             sql.append("UPDATE DONATE SET ");
-            sql.append(" ID_DONATE = ?,");
-            sql.append(" ID_REQUEST = ?,");
-            sql.append(" DONATOR_NOME = ? ,");
-            sql.append(" DONATOR_EMAIL = ? ,");
-            sql.append(" DONATOR_VALUE = ? ,");
-            sql.append(" DONATOR_DESCRIPTION = ? ,");
-            sql.append(" WHERE ID_DONATE = ?");
+            sql.append(" ID_BANK_ACCOUNT = ?,");
+            sql.append(" ACCOUNT_NUMBER = ?,");
+            sql.append(" AGENCY = ? ,");
+            sql.append(" WHERE id_bank_account = ?");
 
             PreparedStatement stmt = con.prepareStatement(sql.toString());
 
-            stmt.setInt(1, donate.getId_donate());
-            stmt.setInt(2, donate.getRequest().getIdRequest());
-            stmt.setString(3, donate.getDonator_name());
-            stmt.setString(4, donate.getDonator_email());
-            stmt.setDouble(5, donate.getDonate_value());
-            stmt.setString(6, donate.getDescription());
+            stmt.setInt(1, bank_account.getId_bank_account());
+            stmt.setString(2, bank_account.getAccount_number());
+            stmt.setString(3, bank_account.getAgency());
 
             // Executa-se a consulta
             int res = stmt.executeUpdate();
-            System.out.println("editarPessoa.res=" + res);
+            System.out.println("editarBank_account.res=" + res);
 
             return res > 0;
         } catch (SQLException e) {
@@ -135,29 +126,25 @@ public class DonateRepository implements Repository<Integer, Donate> {
     }
 
     @Override
-    public List<Donate> list() throws SQLException {
-        List<Donate> donates = new ArrayList<>();
+    public List<BankAccount> list() throws SQLException {
+        List<BankAccount> bank_accounts = new ArrayList<>();
         Connection conn = null;
         try {
             conn = ConnectionDB.getConnection();
 
             Statement stmt = conn.createStatement();
 
-            String sql = "SELECT * DONATE";
+            String sql = "SELECT * BANK_ACCOUNT";
 
             ResultSet res = stmt.executeQuery(sql);
 
             while (res.next()) {
-                Donate donate = new Donate();
-                donate.setId_donate(res.getInt("id_donate"));
-                donate.setRequest(res.getObject("request"));
-                donate.setDonator_name(res.getString("donator_name"));
-                donate.setDonator_email(res.getString("donator_email"));
-                donate.setDonate_value(res.getDouble("donate_value"));
-                donate.setDescription(res.getString("description"));
+                BankAccount bank_account = new BankAccount();
+                bank_account.setId_bank_account(res.getInt("id_bank_account"));
+                bank_account.setAccount_number(res.getString("account"));
+                bank_account.setAgency(res.getString("agency"));
 
-
-                donates.add(donate);
+                bank_accounts.add(bank_account);
             }
         } catch (SQLException e) {
             throw new SQLException(e.getCause());
@@ -170,6 +157,6 @@ public class DonateRepository implements Repository<Integer, Donate> {
                 e.printStackTrace();
             }
         }
-        return donates;
+        return bank_accounts;
     }
 }
