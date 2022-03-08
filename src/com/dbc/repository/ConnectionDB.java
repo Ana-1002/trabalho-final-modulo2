@@ -17,7 +17,7 @@ public class ConnectionDB {
 
         Connection con = DriverManager.getConnection(url, USER, PASS);
 
-        con.createStatement().execute("alter session set current_schema=VEM_SER");
+        con.createStatement().execute("alter session set current_schema=DONATOR_PROJECT");
 
         return con;
     }
