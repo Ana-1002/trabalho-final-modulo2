@@ -134,7 +134,7 @@ public class BankAccountRepository implements Repository<Integer, BankAccount> {
 
             Statement stmt = conn.createStatement();
 
-            String sql = "SELECT * BANK_ACCOUNT";
+            String sql = "SELECT * from BANK_ACCOUNT";
 
             ResultSet res = stmt.executeQuery(sql);
 
