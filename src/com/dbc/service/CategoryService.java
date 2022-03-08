@@ -10,12 +10,8 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
 
     public static void main(String[] args) {
-        Category category = new Category();
-        category.setName("teste");
-        category.setDescription(" ");
-
+        //TODO - tem erro
         CategoryService categoryService = new CategoryService();
-        categoryService.add(category);
         categoryService.list();
     }
 
