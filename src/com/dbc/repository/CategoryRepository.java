@@ -211,5 +211,7 @@ public class CategoryRepository implements Repository<Integer, Category> {
                 e.printStackTrace();
             }
         }
+        //TODO - Conferir tratamento
+        return null;
     }
 }
