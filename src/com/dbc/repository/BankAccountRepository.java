@@ -95,7 +95,7 @@ public class BankAccountRepository implements Repository<Integer, BankAccount> {
             con = ConnectionDB.getConnection();
 
             StringBuilder sql = new StringBuilder();
-            sql.append("UPDATE DONATE SET ");
+            sql.append("UPDATE BANK_ACCOUNT SET ");
             sql.append(" ID_BANK_ACCOUNT = ?,");
             sql.append(" ACCOUNT_NUMBER = ?,");
             sql.append(" AGENCY = ? ,");
@@ -141,7 +141,7 @@ public class BankAccountRepository implements Repository<Integer, BankAccount> {
             while (res.next()) {
                 BankAccount bank_account = new BankAccount();
                 bank_account.setId_bank_account(res.getInt("id_bank_account"));
-                bank_account.setAccount_number(res.getString("account"));
+                bank_account.setAccount_number(res.getString("account_number"));
                 bank_account.setAgency(res.getString("agency"));
 
                 bank_accounts.add(bank_account);

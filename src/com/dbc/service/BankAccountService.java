@@ -43,7 +43,7 @@ public class BankAccountService {
             e.printStackTrace();
         }
     }
-
+//trocar no print pessoa por bank
     public void updateBankAccount(Integer id, BankAccount bankAccount){
         try {
             boolean updated = bank_account_repository.update(id, bankAccount);
