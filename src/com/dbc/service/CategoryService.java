@@ -3,15 +3,27 @@ package com.dbc.service;
 import com.dbc.entities.Category;
 import com.dbc.repository.CategoryRepository;
 
+import java.sql.SQLException;
+
 public class CategoryService {
 
     private CategoryRepository categoryRepository;
+
+    public static void main(String[] args) {
+        Category category = new Category();
+        category.setName("teste");
+        category.setDescription(" ");
+
+        CategoryService categoryService = new CategoryService();
+        categoryService.add(category);
+        categoryService.list();
+    }
 
     public CategoryService() {
         categoryRepository = new CategoryRepository();
     }
 
-    public void addCategory(Category category) {
+    public void add(Category category) {
         try {
             if (categoryRepository.nameAlreadyExists(category.getName().toLowerCase())) {
                 throw new Exception("Nome de categoria já existente!");
@@ -20,8 +32,33 @@ public class CategoryService {
             Category addedCategory = categoryRepository.add(category);
             System.out.println("Categoria adicionada com sucesso! " + addedCategory);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
+    public void remove(Integer id) {
+        try {
+            boolean isRemoved = categoryRepository.remove(id);
+            System.out.println("removido? " + isRemoved + "| com id=" + id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void update(Integer id, Category category) {
+        try {
+            boolean isUpdated = categoryRepository.update(id, category);
+            System.out.println("editado? " + isUpdated + "| com id=" + id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void list() {
+        try {
+            categoryRepository.list().forEach(System.out::println);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

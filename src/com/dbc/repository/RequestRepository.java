@@ -75,7 +75,7 @@ public class RequestRepository implements Repository<Integer, Request> {
             statement.setInt(1, id);
 
             int res = statement.executeUpdate();
-            System.out.println("removeRemoveRequestId.res=" + res);
+            System.out.println("removeRequest.res=" + res);
 
             return res > 0;
         } catch (SQLException e) {
@@ -102,12 +102,14 @@ public class RequestRepository implements Repository<Integer, Request> {
             sql.append(" title = ?,");
             sql.append(" description = ?,");
             sql.append(" goal = ? ");
+            sql.append("WHERE id_request = ?");
 
             PreparedStatement stmt = conn.prepareStatement(sql.toString());
 
             stmt.setString(1, request.getTitle());
             stmt.setString(2, request.getDescription());
             stmt.setDouble(3, request.getGoal());
+            stmt.setInt(4, id);
 
             int res = stmt.executeUpdate();
             System.out.println("updateRequest.res=" + res);
