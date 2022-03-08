@@ -1,19 +1,19 @@
 package com.dbc.entities.user;
 
-public abstract class User {
+public class User {
     private Integer idUser;
     private String name;
     private String email;
     private String password;
-    private Boolean isPerson = true;
+    private Integer type = 1;
     private String document;
 
     public User(){}
-    public User(String name, String email, String password, Boolean isPerson, String document) {
+    public User(String name, String email, String password, Integer type, String document) {
         this.setName(name);
         this.setEmail(email);
         this.setPassword(password);
-        this.setIsPerson(isPerson);
+        this.setType(type);
         this.setDocument(document);
     }
 
@@ -49,12 +49,12 @@ public abstract class User {
         this.password = password;
     }
 
-    public Boolean getIsPerson() {
-        return isPerson;
+    public Integer getType() {
+        return type;
     }
 
-    public void setIsPerson(Boolean person) {
-        isPerson = person;
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public String getDocument() {
@@ -63,5 +63,23 @@ public abstract class User {
 
     public void setDocument(String document) {
         this.document = document;
+    }
+
+    public Boolean isPerson () {
+        if (this.getType() == 1) {
+            return true;
+        } else if (this.getType() == 2) {
+            return false;
+        }
+        return null;
+    }
+
+    public Boolean isInstitution () {
+        if (this.getType() == 1) {
+            return false;
+        } else if (this.getType() == 2) {
+            return true;
+        }
+        return null;
     }
 }

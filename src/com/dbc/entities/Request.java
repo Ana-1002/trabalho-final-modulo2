@@ -2,10 +2,6 @@ package com.dbc.entities;
 
 
 import com.dbc.entities.user.User;
-import com.dbc.enums.Categories;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Request {
 

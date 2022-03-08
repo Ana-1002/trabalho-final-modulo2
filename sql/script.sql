@@ -50,7 +50,7 @@ CREATE TABLE  DONATOR_PROJECT.USERS (
   name VARCHAR2(45) NOT NULL,
   email VARCHAR2(70) NOT NULL,
   password VARCHAR2(2000) NOT NULL,
-  is_person NUMBER NOT NULL,
+  type NUMBER NOT NULL,
   document VARCHAR2(18) NOT NULL,
   
   PRIMARY KEY (id_user)
@@ -157,13 +157,13 @@ VALUES (DONATOR_PROJECT.bank_account_seq.nextval, '7000255', '1205');
 -- -----------------------------------------------------
 -- INSERT DONATOR_PROJECT.USER
 -- -----------------------------------------------------
-INSERT  INTO DONATOR_PROJECT.USERS (id_user, name, email, password, is_person, document)
+INSERT  INTO DONATOR_PROJECT.USERS (id_user, name, email, password, type, document)
 VALUES (DONATOR_PROJECT.users_seq.nextval, 'Daniele', 'dani@gmail', '1234', 1, '123.456.789-00');
-INSERT  INTO DONATOR_PROJECT.USERS (id_user, name, email, password, is_person, document)
+INSERT  INTO DONATOR_PROJECT.USERS (id_user, name, email, password, type, document)
 VALUES (DONATOR_PROJECT.users_seq.nextval, 'Liane', 'liane@gmail', '1234', 1, '123.456.789-01');
-INSERT  INTO DONATOR_PROJECT.USERS (id_user, name, email, password, is_person, document)
+INSERT  INTO DONATOR_PROJECT.USERS (id_user, name, email, password, type, document)
 VALUES (DONATOR_PROJECT.users_seq.nextval, 'Claudia', 'claudia@gmail', '1234', 1, '123.456.789-02');
-INSERT  INTO DONATOR_PROJECT.USERS (id_user, name, email, password, is_person, document)
+INSERT  INTO DONATOR_PROJECT.USERS (id_user, name, email, password, type, document)
 VALUES (DONATOR_PROJECT.users_seq.nextval, 'Rodrigo', 'rodrigo@gmail', '1234', 2, '11.111.111/1111-11');
 
 -- -----------------------------------------------------

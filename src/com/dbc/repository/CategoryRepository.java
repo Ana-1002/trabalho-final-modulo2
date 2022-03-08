@@ -96,11 +96,13 @@ public class CategoryRepository implements Repository<Integer, Category> {
             sql.append("UPDATE CATEGORY SET ");
             sql.append(" name = ?,");
             sql.append(" category_description = ?");
+            sql.append("WHERE id_category = ?");
 
             PreparedStatement stmt = conn.prepareStatement(sql.toString());
 
             stmt.setString(1, category.getName());
             stmt.setString(2, category.getDescription());
+            stmt.setInt(3, id);
 
             int res = stmt.executeUpdate();
             System.out.println("updateCategory.res=" + res);
@@ -161,7 +163,7 @@ public class CategoryRepository implements Repository<Integer, Category> {
 
             Statement stmt = conn.createStatement();
 
-            String sql = "SELECT * FROM CATEGORY WHERE name = " + name;
+            String sql = "SELECT * FROM CATEGORY WHERE LOWER(name) = " + name;
 
             ResultSet res = stmt.executeQuery(sql);
 
