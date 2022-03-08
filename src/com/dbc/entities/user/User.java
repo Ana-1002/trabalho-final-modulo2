@@ -82,4 +82,16 @@ public class User {
         }
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "\n idUser =\t" + idUser +
+                "\n name =\t\t'" + name + '\'' +
+                "\n email =\t'" + email + '\'' +
+                "\n password =\t'" + password + '\'' +
+                "\n type =\t\t" + type +
+                "\n document =\t'" + document + '\'' +
+                "\n}";
+    }
 }
