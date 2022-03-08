@@ -50,6 +50,8 @@ CREATE TABLE  DONATOR_PROJECT.USERS (
   name VARCHAR2(45) NOT NULL,
   email VARCHAR2(70) NOT NULL,
   password VARCHAR2(2000) NOT NULL,
+  is_person NUMBER NOT NULL,
+  document VARCHAR2(18) NOT NULL,
   
   PRIMARY KEY (id_user)
 );
@@ -88,32 +90,6 @@ CREATE TABLE  DONATOR_PROJECT.REQUEST (
 	 INCREMENT BY   1
 	 NOCACHE
 	 NOCYCLE;	
-	
--- -----------------------------------------------------
--- Table DONATOR_PROJECT.PERSON
--- -----------------------------------------------------
-CREATE TABLE  DONATOR_PROJECT.PERSON (
-  id_user NUMBER NOT NULL,
-  cpf VARCHAR2(14) UNIQUE NOT NULL,
-  
-  PRIMARY KEY (id_user),
-  CONSTRAINT fk_Person_User1
-    FOREIGN KEY (id_user)
-    REFERENCES DONATOR_PROJECT.USERS (id_user)
-);
-
--- -----------------------------------------------------
--- Table DONATOR_PROJECT.INSTITUTION
--- -----------------------------------------------------
-CREATE TABLE  DONATOR_PROJECT.INSTITUTION (
-  id_user NUMBER NOT NULL,
-  cnpj VARCHAR2(18) UNIQUE NOT NULL,
-  
-  PRIMARY KEY (id_user),
-  CONSTRAINT fk_Institution_User1
-    FOREIGN KEY (id_user)
-    REFERENCES DONATOR_PROJECT.USERS (id_user)
-);
 
 -- -----------------------------------------------------
 -- Table DONATOR_PROJECT.DONATE
@@ -181,14 +157,14 @@ VALUES (DONATOR_PROJECT.bank_account_seq.nextval, '7000255', '1205');
 -- -----------------------------------------------------
 -- INSERT DONATOR_PROJECT.USER
 -- -----------------------------------------------------
-INSERT  INTO DONATOR_PROJECT.USERS (id_user, name, email, password)
-VALUES (DONATOR_PROJECT.users_seq.nextval, 'Daniele', 'dani@gmail', '1234');	
-INSERT  INTO DONATOR_PROJECT.USERS (id_user, name, email, password)
-VALUES (DONATOR_PROJECT.users_seq.nextval, 'Liane', 'liane@gmail', '1234');
-INSERT  INTO DONATOR_PROJECT.USERS (id_user, name, email, password)
-VALUES (DONATOR_PROJECT.users_seq.nextval, 'Claudia', 'claudia@gmail', '1234');
-INSERT  INTO DONATOR_PROJECT.USERS (id_user, name, email, password)
-VALUES (DONATOR_PROJECT.users_seq.nextval, 'Rodrigo', 'rodrigo@gmail', '1234');
+INSERT  INTO DONATOR_PROJECT.USERS (id_user, name, email, password, is_person, document)
+VALUES (DONATOR_PROJECT.users_seq.nextval, 'Daniele', 'dani@gmail', '1234', 1, '123.456.789-00');
+INSERT  INTO DONATOR_PROJECT.USERS (id_user, name, email, password, is_person, document)
+VALUES (DONATOR_PROJECT.users_seq.nextval, 'Liane', 'liane@gmail', '1234', 1, '123.456.789-01');
+INSERT  INTO DONATOR_PROJECT.USERS (id_user, name, email, password, is_person, document)
+VALUES (DONATOR_PROJECT.users_seq.nextval, 'Claudia', 'claudia@gmail', '1234', 1, '123.456.789-02');
+INSERT  INTO DONATOR_PROJECT.USERS (id_user, name, email, password, is_person, document)
+VALUES (DONATOR_PROJECT.users_seq.nextval, 'Rodrigo', 'rodrigo@gmail', '1234', 2, '11.111.111/1111-11');
 
 -- -----------------------------------------------------
 -- INSERT DONATOR_PROJECT.REQUEST
@@ -199,22 +175,6 @@ INSERT INTO DONATOR_PROJECT.REQUEST (id_request, title, request_description, goa
 VALUES (DONATOR_PROJECT.request_seq.nextval, 'Meu pai está morrendo', ' Não temos dinheiro para os remédios', 100000, 0, 3, 2, 2);
 INSERT INTO DONATOR_PROJECT.REQUEST (id_request, title, request_description, goal, reached_value, id_category, id_bank_account, id_user)
 VALUES (DONATOR_PROJECT.request_seq.nextval, 'Anne não tem fámilia, país e comida', ' Uma refugiada Ucraniana de 7 anos, precisamos de dinheiro pra manter a ong', 200000, 0, 6, 3, 3);
-
--- -----------------------------------------------------
--- INSERT DONATOR_PROJECT.PERSON
--- -----------------------------------------------------
-INSERT INTO DONATOR_PROJECT.PERSON (id_user, cpf)
-VALUES (1, '689.421.570-46');
-INSERT INTO DONATOR_PROJECT.PERSON (id_user, cpf)
-VALUES (2, '258.001.014-28');
-INSERT INTO DONATOR_PROJECT.PERSON (id_user, cpf)
-VALUES (3, '689.123.589-32');	
-
--- -----------------------------------------------------
--- INSERT DONATOR_PROJECT.INSTITUTION
--- -----------------------------------------------------
-INSERT INTO  DONATOR_PROJECT.INSTITUTION (id_user, cnpj)
-VALUES (4, '91.234.765/1263-12');
 
 -- -----------------------------------------------------
 -- INSERT DONATOR_PROJECT.DONATE
