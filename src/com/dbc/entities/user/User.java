@@ -68,19 +68,17 @@ public class User {
     public Boolean isPerson () {
         if (this.getType() == 1) {
             return true;
-        } else if (this.getType() == 2) {
+        } else {
             return false;
         }
-        return null;
     }
 
     public Boolean isInstitution () {
         if (this.getType() == 1) {
             return false;
-        } else if (this.getType() == 2) {
+        } else {
             return true;
         }
-        return null;
     }
 
     @Override
