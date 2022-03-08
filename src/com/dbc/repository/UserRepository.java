@@ -8,6 +8,12 @@ import java.util.List;
 
 public class UserRepository implements Repository<Integer, User> {
 
+//    public static void main(String[] args) throws SQLException {
+//        for (User user : new UserRepository().list()) {
+//            System.out.println(user);
+//        }
+//    }
+
     @Override
     public Integer getNextId(Connection connection) throws SQLException {
         String sql = "SELECT DONATOR_PROJECT.users_seq.nextval mysequence FROM DUAL";
@@ -134,11 +140,10 @@ public class UserRepository implements Repository<Integer, User> {
 
             Statement stmt = conn.createStatement();
 
-            String sql = "SELECT * USERS";
+            String sql = "SELECT * FROM USERS";
 
             ResultSet res = stmt.executeQuery(sql);
 
-            // TODO - arrumar isso, mas depende dos metódos das outras classes
             while (res.next()) {
                 User user = new User();
                 user.setIdUser(res.getInt("id_user"));
@@ -151,7 +156,8 @@ public class UserRepository implements Repository<Integer, User> {
                 users.add(user);
             }
         } catch (SQLException e) {
-            throw new SQLException(e.getCause());
+           // throw new SQLException(e.getCause());
+            e.printStackTrace();
         } finally {
             try {
                 if (conn != null) {
