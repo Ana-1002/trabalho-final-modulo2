@@ -12,7 +12,7 @@ public class Request {
     private Integer idRequest;
     private String title, description;
     private Double goal, reachedValue;
-    private Categories category;
+    private Category category;
     private BankAccount account;
     private User user;
 
@@ -56,11 +56,11 @@ public class Request {
         this.reachedValue = 0.0;
     }
 
-    public Categories getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(Categories category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
