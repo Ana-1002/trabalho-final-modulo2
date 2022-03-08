@@ -101,10 +101,11 @@ public class DonateRepository implements Repository<Integer, Donate> {
             sql.append("UPDATE DONATE SET ");
             sql.append(" ID_DONATE = ?,");
             sql.append(" ID_REQUEST = ?,");
-            sql.append(" DONATOR_NOME = ? ");
-            sql.append(" DONATOR_EMAIL = ? ");
-            sql.append(" DONATOR_VALUE = ? ");
-            sql.append(" DONATOR_DESCRIPTION = ? ");
+            sql.append(" DONATOR_NOME = ? ,");
+            sql.append(" DONATOR_EMAIL = ? ,");
+            sql.append(" DONATOR_VALUE = ? ,");
+            sql.append(" DONATOR_DESCRIPTION = ? ,");
+            sql.append(" WHERE ID_DONATE = ?");
 
             PreparedStatement stmt = con.prepareStatement(sql.toString());
 
