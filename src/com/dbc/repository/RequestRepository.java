@@ -1,5 +1,6 @@
 package com.dbc.repository;
 
+import com.dbc.entities.Category;
 import com.dbc.entities.Request;
 
 import java.sql.*;
@@ -7,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RequestRepository implements Repository<Integer, Request> {
+    public static void main(String[] args) throws SQLException {
+        new RequestRepository().list().forEach(System.out::println);
+    }
+
 
     @Override
     public Integer getNextId(Connection connection) throws SQLException {
@@ -43,7 +48,7 @@ public class RequestRepository implements Repository<Integer, Request> {
             statement.setDouble(4, request.getGoal());
             statement.setDouble(5, request.getReachedValue());
             statement.setInt(6, request.getCategory().getIdCategory());
-            statement.setInt(7, request.getAccount().getIdAccount());
+            statement.setInt(7, request.getAccount().getId_bank_account());
             statement.setInt(8, request.getUser().getIdUser());
 
             int res = statement.executeUpdate();
@@ -137,7 +142,7 @@ public class RequestRepository implements Repository<Integer, Request> {
 
             Statement stmt = conn.createStatement();
 
-            String sql = "SELECT * REQUEST";
+            String sql = "SELECT * FROM REQUEST";
 
             ResultSet res = stmt.executeQuery(sql);
 
@@ -146,9 +151,9 @@ public class RequestRepository implements Repository<Integer, Request> {
                 Request request = new Request();
                 request.setIdRequest(res.getInt("id_request"));
                 request.setTitle(res.getString("title"));
-                request.setDescription(res.getString("description"));
-                request.setAccount(null);
-                request.setCategory(null);
+                request.setDescription(res.getString("request_description"));
+                request.setAccount(new BankAccountRepository().getBankAccountById(res.getInt("id_bank_account")));
+                request.setCategory(new CategoryRepository().getCategoryById(res.getInt("id_category")));
                 request.setUser(null);
                 request.setGoal(res.getDouble("goal"));
                 request.setReachedValue(res.getDouble("reached_value"));
@@ -156,6 +161,7 @@ public class RequestRepository implements Repository<Integer, Request> {
                 requests.add(request);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new SQLException(e.getCause());
         } finally {
             try {

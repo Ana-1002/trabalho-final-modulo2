@@ -53,4 +53,13 @@ public class BankAccount {
     public void setAgency(String agency) {
         this.agency = agency;
     }
+
+    @Override
+    public String toString() {
+        return "BankAccount{" +
+                "id_bank_account=" + id_bank_account +
+                ", account_number='" + account_number + '\'' +
+                ", agency='" + agency + '\'' +
+                '}';
+    }
 }
