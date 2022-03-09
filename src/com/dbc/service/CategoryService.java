@@ -12,6 +12,8 @@ public class CategoryService {
     public static void main(String[] args) {
         //TODO - tem erro
         CategoryService categoryService = new CategoryService();
+        categoryService.remove(11);
+
         categoryService.list();
     }
 
@@ -21,9 +23,9 @@ public class CategoryService {
 
     public void add(Category category) {
         try {
-            if (categoryRepository.nameAlreadyExists(category.getName().toLowerCase())) {
-                throw new Exception("Nome de categoria já existente!");
-            }
+//            if (categoryRepository.nameAlreadyExists(category.getName().toLowerCase())) {
+//                throw new Exception("Nome de categoria já existente!");
+//            }
 
             Category addedCategory = categoryRepository.add(category);
             System.out.println("Categoria adicionada com sucesso! " + addedCategory);
