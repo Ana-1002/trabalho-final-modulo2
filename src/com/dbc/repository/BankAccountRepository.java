@@ -199,23 +199,23 @@ public class BankAccountRepository implements Repository<Integer, BankAccount> {
         // DonateRepository donateRepository = new DonateRepository();
 //    donateRepository.list().forEach(System.out::println);
     //donateRepository.remove(1);
-    Donate donate=new Donate();
-    donate.setDonator_name("ana");
-    donate.setDonator_email("ana@gmail");
-    donate.setDonate_value(1000.0);
-    donate.setDescription(null);
-    donate.setRequest(new RequestRepository().getRequestById(2));
-    DonateService donateService = new DonateService();
-    donateService.add(donate);
+//    Donate donate=new Donate();
+//    donate.setDonator_name("ana");
+//    donate.setDonator_email("ana@gmail");
+//    donate.setDonate_value(1000.0);
+//    donate.setDescription(null);
+//    donate.setRequest(new RequestRepository().getRequestById(2));
+//    DonateService donateService = new DonateService();
+//    donateService.add(donate);
 
 //        bankAccountRepository.remove(12);
-//        BankAccount bankAccount = new BankAccount();
-//        bankAccount.setId_bank_account(2);
-//        bankAccount.setAccount_number("5900498");
-//        bankAccount.setAgency("1789");
+        BankAccount bankAccount = new BankAccount();
+        bankAccount.setId_bank_account(2);
+        bankAccount.setAccount_number("5902498");
+        bankAccount.setAgency("1789");
         //adicionando mesmo quando tem uma igual
-//        BankAccountService bankAccountService= new BankAccountService();
-//        bankAccountService.add(bankAccount);
+        BankAccountService bankAccountService= new BankAccountService();
+        bankAccountService.add(bankAccount);
 //        bankAccountRepository.list().forEach(System.out::println);
 //        //não da update
 //      bankAccountRepository.update(2, bankAccount);

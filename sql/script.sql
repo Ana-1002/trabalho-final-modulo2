@@ -142,17 +142,17 @@ VALUES (DONATOR_PROJECT.category_seq.nextval, 'OUTROS', 'Outros');
 -- INSERT DONATOR_PROJECT.BANK_ACCOUNT
 -- -----------------------------------------------------
 INSERT INTO DONATOR_PROJECT.BANK_ACCOUNT (id_bank_account, account_number, agency)
-VALUES (DONATOR_PROJECT.bank_account_seq.nextval, '220252', '1005');
+VALUES (DONATOR_PROJECT.bank_account_seq.nextval, '2202512', '1005');
 INSERT INTO DONATOR_PROJECT.BANK_ACCOUNT (id_bank_account, account_number, agency)
 VALUES (DONATOR_PROJECT.bank_account_seq.nextval, '1010256', '1008');
 INSERT INTO DONATOR_PROJECT.BANK_ACCOUNT (id_bank_account, account_number, agency)
-VALUES (DONATOR_PROJECT.bank_account_seq.nextval, '7000255', '1205');
+VALUES (DONATOR_PROJECT.bank_account_seq.nextval, '7020855', '1205');
 INSERT INTO DONATOR_PROJECT.BANK_ACCOUNT (id_bank_account, account_number, agency)
-VALUES (DONATOR_PROJECT.bank_account_seq.nextval, '220252', '1005');
+VALUES (DONATOR_PROJECT.bank_account_seq.nextval, '210252', '1005');
 INSERT INTO DONATOR_PROJECT.BANK_ACCOUNT (id_bank_account, account_number, agency)
-VALUES (DONATOR_PROJECT.bank_account_seq.nextval, '1010256', '1008');
+VALUES (DONATOR_PROJECT.bank_account_seq.nextval, '1810256', '1008');
 INSERT INTO DONATOR_PROJECT.BANK_ACCOUNT (id_bank_account, account_number, agency)
-VALUES (DONATOR_PROJECT.bank_account_seq.nextval, '7000255', '1205');
+VALUES (DONATOR_PROJECT.bank_account_seq.nextval, '7900255', '1205');
 	
 -- -----------------------------------------------------
 -- INSERT DONATOR_PROJECT.USER
