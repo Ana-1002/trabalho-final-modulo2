@@ -114,12 +114,14 @@ public class UserRepository implements Repository<Integer, User> {
             stmt.setString(1, user.getName());
             stmt.setString(2, user.getEmail());
             stmt.setString(3, user.getPassword());
+            stmt.setInt(4, user.getIdUser());
 
             int res = stmt.executeUpdate();
             System.out.println("updateuser.res=" + res);
 
             return res > 0;
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new SQLException(e.getCause());
         } finally {
             try {

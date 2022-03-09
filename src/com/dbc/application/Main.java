@@ -50,8 +50,12 @@ public class Main {
                     clear();
                     new UserService().list();
                     System.out.println();
-                    String idUpdate = scanner.nextLine();
-                    User user = new UserRepository().getUserById(Integer.parseInt(idUpdate));
+                    System.out.println("Informe o Id do usuario que deseja atualizar");
+                    System.out.printf(" -> ");
+                    Integer idUpdate = scanner.nextInt();
+                    scanner.nextLine();
+                    clear();
+                    User user = new UserRepository().getUserById(idUpdate);
                     if (user != null){
                         System.out.printf("Nome: ");
                         user.setName(scanner.nextLine());
@@ -175,7 +179,7 @@ public class Main {
         System.out.print(" Informer a categoria -> ");
         number = scanner.nextLine();
 
-        Category category = new CategoryRepository().getCategoryById(Integer.parseInt(id));
+        Category category = new CategoryRepository().getCategoryById(Integer.parseInt(number));
 
         clear();
         System.out.printf("Titulo da Vakinha: ");
@@ -239,7 +243,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println();
-        System.out.println("Pressione 2x [ENTER] para continuar");
+        System.out.println("Pressione [ENTER] para continuar");
         scanner.nextLine();
 
     }
