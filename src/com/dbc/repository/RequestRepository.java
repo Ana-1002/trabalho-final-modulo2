@@ -9,6 +9,17 @@ import java.util.List;
 
 public class RequestRepository implements Repository<Integer, Request> {
 
+    public static void main(String[] args) throws SQLException {
+        RequestRepository repo = new RequestRepository();
+
+        repo.list().forEach(System.out::println);
+
+//        repo.incrementReachedValue(2, 300.0);
+//
+//        repo.list().forEach(System.out::println);
+
+    }
+
     @Override
     public Integer getNextId(Connection connection) throws SQLException {
         String sql = "SELECT DONATOR_PROJECT.request_seq.nextval mysequence FROM DUAL";
@@ -42,7 +53,7 @@ public class RequestRepository implements Repository<Integer, Request> {
             statement.setString(2, request.getTitle());
             statement.setString(3, request.getDescription());
             statement.setDouble(4, request.getGoal());
-            statement.setDouble(5, request.getReachedValue());
+            statement.setDouble(5, 0.0);
             statement.setInt(6, request.getCategory().getIdCategory());
             statement.setInt(7, request.getAccount().getId_bank_account());
             statement.setInt(8, request.getUser().getIdUser());
@@ -142,7 +153,6 @@ public class RequestRepository implements Repository<Integer, Request> {
 
             ResultSet res = stmt.executeQuery(sql);
 
-            // TODO - arrumar isso, mas depende dos metódos das outras classes
             while (res.next()) {
                 Request request = new Request();
                 request.setIdRequest(res.getInt("id_request"));
@@ -207,5 +217,48 @@ public class RequestRepository implements Repository<Integer, Request> {
             }
         }
         return r;
+    }
+
+    public boolean incrementReachedValue(Integer id, Double value) throws SQLException {
+        Connection conn = null;
+        try {
+            conn = ConnectionDB.getConnection();
+
+            Statement stmt = conn.createStatement();
+
+            String sql = "SELECT * FROM REQUEST WHERE id_request = " + id;
+
+            ResultSet res = stmt.executeQuery(sql);
+
+            if (res.next()) {
+                Double reached_value = res.getDouble("reached_value");
+                reached_value += value;
+
+                StringBuilder sqll = new StringBuilder();
+                sqll.append("UPDATE REQUEST SET");
+                sqll.append(" reached_value = ?");
+                sqll.append("WHERE id_request = ?");
+
+                PreparedStatement statement = conn.prepareStatement(sqll.toString());
+                statement.setDouble(1, reached_value);
+                statement.setInt(2, id);
+
+                int ress = statement.executeUpdate();
+                System.out.println("incrementedReachedValue.res=" + ress);
+                return ress > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException(e.getCause());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 }
