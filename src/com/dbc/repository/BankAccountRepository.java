@@ -194,4 +194,9 @@ public class BankAccountRepository implements Repository<Integer, BankAccount> {
         }
         return null;
     }
+    public static void main(String[] args) throws SQLException {
+    BankAccountRepository bankAccountRepository = new BankAccountRepository();
+    bankAccountRepository.list().forEach(System.out::println);
+    bankAccountRepository.remove(6);
+    }
 }

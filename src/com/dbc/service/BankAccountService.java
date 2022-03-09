@@ -4,6 +4,7 @@ import com.dbc.entities.BankAccount;
 import com.dbc.repository.BankAccountRepository;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BankAccountService {
@@ -43,11 +44,11 @@ public class BankAccountService {
             e.printStackTrace();
         }
     }
-//trocar no print pessoa por bank
+
     public void updateBankAccount(Integer id, BankAccount bankAccount){
         try {
             boolean updated = bank_account_repository.update(id, bankAccount);
-            System.out.println("pessoa editada? " + updated + "| com id=" + id);
+            System.out.println("Conta editada? " + updated + "| com id=" + id);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,5 +62,6 @@ public class BankAccountService {
             e.printStackTrace();
         }
     }
+
 
 }

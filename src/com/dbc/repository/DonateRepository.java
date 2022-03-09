@@ -118,7 +118,7 @@ public class DonateRepository implements Repository<Integer, Donate> {
 
             // Executa-se a consulta
             int res = stmt.executeUpdate();
-            System.out.println("editarPessoa.res=" + res);
+            System.out.println("editarDonate.res=" + res);
 
             return res > 0;
         } catch (SQLException e) {

@@ -1,5 +1,7 @@
 package com.dbc.application;
 
+import com.dbc.entities.BankAccount;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -267,6 +269,9 @@ public class Main {
 //        System.out.println();
 //        System.out.println("Pressione 2x [ENTER] para continuar");
 //        scanner.nextLine();
+
+
+
 //
     }
 }

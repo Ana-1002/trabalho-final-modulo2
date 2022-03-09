@@ -1,5 +1,4 @@
 package com.dbc.entities;
-import java.util.Scanner;
 
 public class Donate {
     private Integer id_donate;
@@ -111,7 +110,7 @@ public class Donate {
         return request;
     }
 
-    public void setRequest(Request request) {
-        this.request = request;
+    public void setRequest(Object request) {
+        this.request = (Request) request;
     }
 }
