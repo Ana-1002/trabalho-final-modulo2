@@ -23,10 +23,6 @@ public class CategoryService {
 
     public void add(Category category) {
         try {
-//            if (categoryRepository.nameAlreadyExists(category.getName().toLowerCase())) {
-//                throw new Exception("Nome de categoria já existente!");
-//            }
-
             Category addedCategory = categoryRepository.add(category);
             System.out.println("Categoria adicionada com sucesso! " + addedCategory);
         } catch (Exception e) {
