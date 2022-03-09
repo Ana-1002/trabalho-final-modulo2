@@ -130,6 +130,7 @@ public class CategoryRepository implements Repository<Integer, Category> {
 
             Statement stmt = conn.createStatement();
 
+
             String sql = "SELECT * FROM CATEGORY";
 
             ResultSet res = stmt.executeQuery(sql);
