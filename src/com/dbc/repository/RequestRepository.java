@@ -33,7 +33,7 @@ public class RequestRepository implements Repository<Integer, Request> {
             request.setIdRequest(nextId);
 
             String sql = "INSERT INTO REQUEST\n" +
-                    "(id_request, title, description, goal, reached_value, id_category, id_bank_account, id_user)\n" +
+                    "(id_request, title, request_description, goal, reached_value, id_category, id_bank_account, id_user)\n" +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)\n";
 
             PreparedStatement statement = conn.prepareStatement(sql);
