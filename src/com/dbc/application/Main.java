@@ -2,6 +2,7 @@ package com.dbc.application;
 
 import com.dbc.entities.BankAccount;
 import com.dbc.entities.Category;
+import com.dbc.entities.Donate;
 import com.dbc.entities.Request;
 import com.dbc.entities.user.User;
 import com.dbc.repository.CategoryRepository;
@@ -108,7 +109,7 @@ public class Main {
                     break;
                 case "8":
                     clear();
-                    new Donate().createDonate();
+                    donateForm();
                     break;
             }
 
@@ -213,11 +214,25 @@ public class Main {
         new RequestService().add(request);
     }
 
+    public static void donateForm(){
+        Scanner scanner= new Scanner(System.in);
+        Donate donate = new Donate();
+        System.out.println("Informe o Id da vakinha");
+        donate.setRequest(scanner.nextInt());
+        System.out.println("Informe seu nome");
+        System.out.println("Informe seu email");
+        System.out.println("Informe o valor a ser doado");
+        System.out.println("Informe a descrição");
+    }
+
+
+
     public static void clear() {
         for (int i = 0; i < 50; i++) {
             System.out.println();
         }
     }
+
 
     public static void pause () {
         Scanner scanner = new Scanner(System.in);

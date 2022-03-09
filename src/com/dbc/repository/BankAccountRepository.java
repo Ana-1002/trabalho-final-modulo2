@@ -177,7 +177,6 @@ public class BankAccountRepository implements Repository<Integer, BankAccount> {
                 account.setId_bank_account(res.getInt("id_bank_account"));
                 account.setAccount_number(res.getString("account_number"));
                 account.setAgency(res.getString("agency"));
-
                 return account;
             }
 
@@ -209,13 +208,13 @@ public class BankAccountRepository implements Repository<Integer, BankAccount> {
 //    donateService.add(donate);
 
 //        bankAccountRepository.remove(12);
-        BankAccount bankAccount = new BankAccount();
-        bankAccount.setId_bank_account(2);
-        bankAccount.setAccount_number("5902498");
-        bankAccount.setAgency("1789");
-        //adicionando mesmo quando tem uma igual
-        BankAccountService bankAccountService= new BankAccountService();
-        bankAccountService.add(bankAccount);
+//        BankAccount bankAccount = new BankAccount();
+//        bankAccount.setId_bank_account(2);
+//        bankAccount.setAccount_number("5902498");
+//        bankAccount.setAgency("1789");
+//        //adicionando mesmo quando tem uma igual
+//        BankAccountService bankAccountService= new BankAccountService();
+//        bankAccountService.add(bankAccount);
 //        bankAccountRepository.list().forEach(System.out::println);
 //        //não da update
 //      bankAccountRepository.update(2, bankAccount);
