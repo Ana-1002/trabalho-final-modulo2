@@ -150,11 +150,11 @@ public class DonateRepository implements Repository<Integer, Donate> {
             while (res.next()) {
                 Donate donate = new Donate();
                 donate.setId_donate(res.getInt("id_donate"));
-                donate.setRequest(res.getObject("request"));
+                donate.setRequest(new RequestRepository().getRequestById(res.getInt("id_request")));
                 donate.setDonator_name(res.getString("donator_name"));
                 donate.setDonator_email(res.getString("donator_email"));
                 donate.setDonate_value(res.getDouble("donate_value"));
-                donate.setDescription(res.getString("description"));
+                donate.setDescription(res.getString("donate_description"));
 
                 donates.add(donate);
             }
