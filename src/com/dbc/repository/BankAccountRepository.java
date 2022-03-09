@@ -2,6 +2,7 @@ package com.dbc.repository;
 
 import com.dbc.entities.BankAccount;
 import com.dbc.entities.Donate;
+import com.dbc.service.BankAccountService;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -96,9 +97,9 @@ public class BankAccountRepository implements Repository<Integer, BankAccount> {
 
             StringBuilder sql = new StringBuilder();
             sql.append("UPDATE BANK_ACCOUNT SET ");
-            sql.append(" ACCOUNT_NUMBER = ?,");
-            sql.append(" AGENCY = ? ,");
-            sql.append(" WHERE ID_BANK_ACCOUNT = ?");
+            sql.append(" ACCOUNT_NUMBER =?,");
+            sql.append(" AGENCY =?");
+            sql.append(" WHERE ID_BANK_ACCOUNT =?");
 
             PreparedStatement stmt = con.prepareStatement(sql.toString());
 
@@ -194,30 +195,31 @@ public class BankAccountRepository implements Repository<Integer, BankAccount> {
         return null;
     }
     public static void main(String[] args) throws SQLException {
-    BankAccountRepository bankAccountRepository = new BankAccountRepository();
+//    BankAccountRepository bankAccountRepository = new BankAccountRepository();
 //
 //
-//    DonateRepository donateRepository = new DonateRepository();
-//    donateRepository.list().forEach(System.out::println);
+    DonateRepository donateRepository = new DonateRepository();
+    donateRepository.list().forEach(System.out::println);
 //    donateRepository.remove(1 );
-//    Donate donate=new Donate();
-//    donate.setDonator_name("ana");
-//    donate.setDonator_email("ana@gmail");
-//    donate.setDonate_value(100.0);
-//    donate.setDescription(null);
-//    donate.setRequest(new RequestRepository().getRequestById(1));
-//    donateRepository.add(donate);
-//
+    Donate donate=new Donate();
+    donate.setDonator_name("ana");
+    donate.setDonator_email("ana@gmail");
+    donate.setDonate_value(100.0);
+    donate.setDescription(null);
+    donate.setRequest(new RequestRepository().getRequestById(1));
+    donateRepository.add(donate);
+
 //        bankAccountRepository.remove(12);
-        BankAccount bankAccount = new BankAccount();
-        bankAccount.setId_bank_account(2);
-        bankAccount.setAccount_number("5900498");
-        bankAccount.setAgency("1789");
+//        BankAccount bankAccount = new BankAccount();
+//        bankAccount.setId_bank_account(2);
+//        bankAccount.setAccount_number("5900498");
+//        bankAccount.setAgency("1789");
         //adicionando mesmo quando tem uma igual
-//        bankAccountRepository.add(bankAccount);
+//        BankAccountService bankAccountService= new BankAccountService();
+//        bankAccountService.add(bankAccount);
 //        bankAccountRepository.list().forEach(System.out::println);
-        //não da update
-      bankAccountRepository.update(2, bankAccount);
-        bankAccountRepository.list().forEach(System.out::println);
+//        //não da update
+//      bankAccountRepository.update(2, bankAccount);
+//        bankAccountRepository.list().forEach(System.out::println);
    }
 }

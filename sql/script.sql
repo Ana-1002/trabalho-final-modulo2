@@ -31,7 +31,7 @@ CREATE TABLE  DONATOR_PROJECT.CATEGORY (
 -- -----------------------------------------------------
 CREATE TABLE  DONATOR_PROJECT.BANK_ACCOUNT (
   id_bank_account NUMBER NOT NULL,
-  account_number VARCHAR2(7) NOT NULL,
+  account_number VARCHAR2(7) NOT NULL UNIQUE,
   agency VARCHAR2(4) NOT NULL,
   
   PRIMARY KEY (id_bank_account)

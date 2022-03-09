@@ -19,6 +19,7 @@ public class BankAccountService {
             if (testIfExist(bankAccount)){
                 throw new Exception("Conta já Existente!");
             }
+            bank_account_repository.add(bankAccount);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e){
