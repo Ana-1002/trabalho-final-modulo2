@@ -49,7 +49,7 @@ public class Request {
     }
 
     public void setReachedValue(Double reachedValue) {
-        this.reachedValue = 0.0;
+        this.reachedValue = reachedValue;
     }
 
     public Category getCategory() {
@@ -84,9 +84,8 @@ public class Request {
                 ", description='" + description + '\'' +
                 ", goal=" + goal +
                 ", reachedValue=" + reachedValue +
-                ", category=" + category +
-                ", account=" + account +
-                ", user=" + user +
+                ", category=" + category.getName() +
+                ", user=" + user.getName() +
                 '}';
     }
 }
