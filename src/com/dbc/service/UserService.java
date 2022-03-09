@@ -14,25 +14,25 @@ public class UserService {
     //TODO - remover static
     private static final UserRepository USER_REPOSITORY = new UserRepository();
 
-    public static void main(String[] args) throws Exception {
-        USER_REPOSITORY.list().forEach(System.out::println);
-        User u = new User("nome", "email", "senha", 1, "23456789");
-        new UserService().add(u);
-        USER_REPOSITORY.list().forEach(System.out::println);
-    }
+//    public static void main(String[] args) throws Exception {
+//        USER_REPOSITORY.list().forEach(System.out::println);
+//        User u = new User("nome", "email", "senha", 1, "23456789");
+//        new UserService().add(u);
+//        USER_REPOSITORY.list().forEach(System.out::println);
+//    }
 
-    public User add (User user) throws Exception {
+    public Boolean add (User user) throws Exception {
         try{
             if (this.userAlreadyExists(user)) {
                 throw new Exception("Usuario invalido");
             }
 
             USER_REPOSITORY.add(user);
-            return user;
+            return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return null;
+        return false;
     }
 
     public void remove(Integer id) {
