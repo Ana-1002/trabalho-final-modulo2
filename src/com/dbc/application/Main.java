@@ -1,10 +1,17 @@
 package com.dbc.application;
 
 import com.dbc.entities.BankAccount;
+import com.dbc.entities.Category;
+import com.dbc.entities.Request;
 import com.dbc.entities.user.User;
+import com.dbc.repository.CategoryRepository;
 import com.dbc.repository.UserRepository;
+import com.dbc.service.BankAccountService;
+import com.dbc.service.CategoryService;
+import com.dbc.service.RequestService;
 import com.dbc.service.UserService;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Main {
@@ -160,55 +167,50 @@ public class Main {
         }
     }
 
-    public static Boolean requestForm( ){
+    public static void requestForm( ) throws SQLException {
         Scanner scanner = new Scanner(System.in);
-        User.listPrint();
+        new UserService().list();
         System.out.printf("Escolha o criador da vakinha: ");
         String id = scanner.nextLine();
-        if (User.getUserById(Integer.parseInt(id)) != null){
-            clear();
-            User user = User.getUserById(Integer.parseInt(id));
-            System.out.printf("Informe numero da conta de destino: ");
-            String number = scanner.nextLine();
-            System.out.printf("Informe agencia: ");
-            String agency = scanner.nextLine();
-            BankAccount bankAccount = new BankAccount(number, agency);
 
-            clear();
-            System.out.println("\t CATEGORIAS");
-            Categories.listCategories();
-            System.out.println();
-            System.out.print(" Informer a categoria -> ");
-            number = scanner.nextLine();
-            clear();
-            Categories categories = Categories.OUTROS;
-            switch (number){
-                case "1" -> categories = Categories.COMBATE_A_FOME;
-                case "2" -> categories = Categories.CRIANÇAS;
-                case "3" -> categories = Categories.ENFERMOS;
-                case "4" -> categories = Categories.COMBATE_A_COVID_19;
-                case "5" -> categories = Categories.CAUSAS_AMBIENTAIS;
-                case "6" -> categories = Categories.SOBREVIVENTES_DE_GUERRA;
-                case "7" -> categories = Categories.ANIMAIS;
-                case "8" -> categories = Categories.SONHOS;
-                case "9" -> categories = Categories.POBREZA;
-                case "10" -> categories = Categories.OUTROS;
-            }
+        clear();
+        User user = new UserRepository().getUserById(Integer.parseInt(id));
+        System.out.printf("Informe numero da conta de destino: ");
+        String number = scanner.nextLine();
+        System.out.printf("Informe agencia: ");
+        String agency = scanner.nextLine();
+        BankAccount account = new BankAccount();
+        account.setAccount_number(number);
+        account.setAgency(agency);
+        new BankAccountService().add(account);
 
-            clear();
-            System.out.printf("Titulo da Vakinha: ");
-            String title = scanner.nextLine();
-            System.out.printf("Descricao da Vakinha: ");
-            String description = scanner.nextLine();
-            System.out.printf("Meta da sua Vakinha : R$ ");
-            Double goal = Double.parseDouble(scanner.nextLine());
-            clear();
+        clear();
+        System.out.println("\t CATEGORIAS");
+        new CategoryService().list();
+        System.out.println();
+        System.out.print(" Informer a categoria -> ");
+        number = scanner.nextLine();
 
-            Request request = new Request(user, bankAccount, categories, title, description, goal);
-            user.setMyRequestsList(request);
-        }
-        return false;
+        Category category = new CategoryRepository().getCategoryById(Integer.parseInt(id));
 
+        clear();
+        System.out.printf("Titulo da Vakinha: ");
+        String title = scanner.nextLine();
+        System.out.printf("Descricao da Vakinha: ");
+        String description = scanner.nextLine();
+        System.out.printf("Meta da sua Vakinha : R$ ");
+        Double goal = Double.parseDouble(scanner.nextLine());
+        clear();
+
+        Request request = new Request();
+        request.setUser(user);
+        request.setAccount(account);
+        request.setDescription(description);
+        request.setCategory(category);
+        request.setGoal(goal);
+        request.setTitle(title);
+
+        new RequestService().add(request);
     }
 
     public static void clear() {
