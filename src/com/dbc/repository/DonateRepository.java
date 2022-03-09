@@ -103,7 +103,7 @@ public class DonateRepository implements Repository<Integer, Donate> {
             sql.append(" DONATOR_NAME = ? ,");
             sql.append(" DONATOR_EMAIL = ? ,");
             sql.append(" DONATE_VALUE = ? ,");
-            sql.append(" DONATE_DESCRIPTION = ? ,");
+            sql.append(" DONATE_DESCRIPTION = ? ");
             sql.append(" WHERE ID_DONATE = ?");
 
             PreparedStatement stmt = con.prepareStatement(sql.toString());

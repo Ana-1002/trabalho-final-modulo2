@@ -19,6 +19,7 @@ public class DonateService {
             if (!testDonate(donate)){
                 throw new Exception("Não foi possível realizar a doação");
             }
+            donateRepository.add(donate);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e){
