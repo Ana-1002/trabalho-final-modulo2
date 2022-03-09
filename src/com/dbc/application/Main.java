@@ -3,6 +3,7 @@ package com.dbc.application;
 import com.dbc.entities.BankAccount;
 import com.dbc.entities.user.User;
 import com.dbc.repository.UserRepository;
+import com.dbc.service.RequestService;
 import com.dbc.service.UserService;
 
 import java.util.Scanner;
@@ -23,7 +24,7 @@ public class Main {
             System.out.println("4 - Remove usuario");
             System.out.println("5 - Cria vakinha");
             System.out.println("6 - Lista vakinha(s)");
-            System.out.println("7 - Lista vakinha(s) por categoria");
+            System.out.println("7 - Exclui vakinha");
             System.out.println("8 - Doar valor");
             System.out.println("0 - Sair");
             System.out.println();
@@ -77,27 +78,12 @@ public class Main {
                     break;
                 case "7":
                     clear();
-                    System.out.println("\t CATEGORIAS");
-                    Categories.listCategories();
+                   new RequestService().list();
                     System.out.println();
-                    System.out.print(" Informer a categoria -> ");
-                    str = scanner.nextLine();
-                    clear();
-                    switch (str){
-                        case "1" -> Request.getRequestsByCategory(Categories.COMBATE_A_FOME);
-                        case "2" -> Request.getRequestsByCategory(Categories.CRIANÇAS);
-                        case "3" -> Request.getRequestsByCategory(Categories.ENFERMOS);
-                        case "4" -> Request.getRequestsByCategory(Categories.COMBATE_A_COVID_19);
-                        case "5" -> Request.getRequestsByCategory(Categories.CAUSAS_AMBIENTAIS);
-                        case "6" -> Request.getRequestsByCategory(Categories.SOBREVIVENTES_DE_GUERRA);
-                        case "7" -> Request.getRequestsByCategory(Categories.ANIMAIS);
-                        case "8" -> Request.getRequestsByCategory(Categories.SONHOS);
-                        case "9" -> Request.getRequestsByCategory(Categories.POBREZA);
-                        case "10" -> Request.getRequestsByCategory(Categories.OUTROS);
-                    }
-                    System.out.println();
-                    System.out.println("Pressione [ENTER] para continuar");
-                    scanner.nextLine();
+                    System.out.println("Informe o Id da Vakinha para excluir");
+                    System.out.printf(" -> ");
+                    String id = scanner.nextLine();
+                    new RequestService().remove(Integer.parseInt(id));
                     break;
                 case "8":
                     clear();
