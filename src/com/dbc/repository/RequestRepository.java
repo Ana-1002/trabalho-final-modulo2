@@ -8,10 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RequestRepository implements Repository<Integer, Request> {
-    public static void main(String[] args) throws SQLException {
-        new RequestRepository().list().forEach(System.out::println);
-    }
-
 
     @Override
     public Integer getNextId(Connection connection) throws SQLException {
@@ -177,6 +173,7 @@ public class RequestRepository implements Repository<Integer, Request> {
 
     public Request getRequestById(Integer id) throws SQLException {
         Connection conn = null;
+        Request r = new Request();
         try {
             conn = ConnectionDB.getConnection();
 
@@ -187,7 +184,6 @@ public class RequestRepository implements Repository<Integer, Request> {
             ResultSet res = stmt.executeQuery(sql);
 
             while (res.next()) {
-                Request r = new Request();
                 r.setIdRequest(res.getInt("id_request"));
                 r.setTitle(res.getString("title"));
                 r.setDescription(res.getString("request_description"));
@@ -209,6 +205,7 @@ public class RequestRepository implements Repository<Integer, Request> {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        return null;
+        }
+        return r;
     }
 }
