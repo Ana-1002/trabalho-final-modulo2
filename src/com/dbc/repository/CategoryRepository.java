@@ -163,11 +163,13 @@ public class CategoryRepository implements Repository<Integer, Category> {
 
             Statement stmt = conn.createStatement();
 
-            String sql = "SELECT * FROM CATEGORY WHERE LOWER(name) = " + name;
+            String sql = "SELECT * FROM CATEGORY WHERE LOWER(name) = " + name + ";";
 
             ResultSet res = stmt.executeQuery(sql);
 
-            return res.first();
+            if (res.next()) {
+                return true;
+            }
         } catch (SQLException e) {
             throw new SQLException(e.getCause());
         } finally {
@@ -179,6 +181,7 @@ public class CategoryRepository implements Repository<Integer, Category> {
                 e.printStackTrace();
             }
         }
+        return false;
     }
 
     public Category getCategoryById(Integer id) throws SQLException {
