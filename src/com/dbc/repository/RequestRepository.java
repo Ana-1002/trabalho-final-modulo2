@@ -9,17 +9,6 @@ import java.util.List;
 
 public class RequestRepository implements Repository<Integer, Request> {
 
-    public static void main(String[] args) throws SQLException {
-        RequestRepository repo = new RequestRepository();
-
-        repo.list().forEach(System.out::println);
-
-//        repo.incrementReachedValue(2, 300.0);
-//
-//        repo.list().forEach(System.out::println);
-
-    }
-
     @Override
     public Integer getNextId(Connection connection) throws SQLException {
         String sql = "SELECT DONATOR_PROJECT.request_seq.nextval mysequence FROM DUAL";
