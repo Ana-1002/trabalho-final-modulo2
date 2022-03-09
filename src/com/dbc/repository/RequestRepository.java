@@ -154,7 +154,7 @@ public class RequestRepository implements Repository<Integer, Request> {
                 request.setDescription(res.getString("request_description"));
                 request.setAccount(new BankAccountRepository().getBankAccountById(res.getInt("id_bank_account")));
                 request.setCategory(new CategoryRepository().getCategoryById(res.getInt("id_category")));
-                request.setUser(null);
+                request.setUser(new UserRepository().getUserById(res.getInt("id_user")));
                 request.setGoal(res.getDouble("goal"));
                 request.setReachedValue(res.getDouble("reached_value"));
 
@@ -173,5 +173,42 @@ public class RequestRepository implements Repository<Integer, Request> {
             }
         }
         return requests;
+    }
+
+    public Request getRequestById(Integer id) throws SQLException {
+        Connection conn = null;
+        try {
+            conn = ConnectionDB.getConnection();
+
+            Statement stmt = conn.createStatement();
+
+            String sql = "SELECT * FROM REQUEST WHERE id_request = " + id;
+
+            ResultSet res = stmt.executeQuery(sql);
+
+            while (res.next()) {
+                Request r = new Request();
+                r.setIdRequest(res.getInt("id_request"));
+                r.setTitle(res.getString("title"));
+                r.setDescription(res.getString("request_description"));
+                r.setGoal(res.getDouble("goal"));
+                r.setReachedValue(res.getDouble("reached_value"));
+                r.setCategory(new CategoryRepository().getCategoryById(res.getInt("id_category")));
+                r.setAccount(new BankAccountRepository().getBankAccountById(res.getInt("id_bank_account")));
+                r.setUser(new UserRepository().getUserById(res.getInt("id_user")));
+
+                return r;
+            }
+        } catch (SQLException e) {
+            throw new SQLException(e.getCause());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        return null;
     }
 }

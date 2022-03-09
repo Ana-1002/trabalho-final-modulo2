@@ -1,5 +1,6 @@
 package com.dbc.repository;
 
+import com.dbc.entities.Category;
 import com.dbc.entities.user.User;
 
 import java.sql.*;
@@ -156,8 +157,8 @@ public class UserRepository implements Repository<Integer, User> {
                 users.add(user);
             }
         } catch (SQLException e) {
-           // throw new SQLException(e.getCause());
             e.printStackTrace();
+            throw new SQLException(e.getCause());
         } finally {
             try {
                 if (conn != null) {
@@ -183,13 +184,13 @@ public class UserRepository implements Repository<Integer, User> {
             //testa cpf (only)
                 //exception d cpf
             if (user.isPerson()){
-                String sql = "SELECT * FROM USERS WHERE type = 1 AND document = " + user.getDocument();
+//                String sql = "SELECT * FROM USERS WHERE type = 1 AND document = " + user.getDocument();
             }
 
             //testa cnpj (only)
                 //exception d cnpj
             if (user.isInstitution()) {
-                String sql = "SELECT * FROM USERS WHERE type = 2 AND document = " + user.getDocument();
+//                String sql = "SELECT * FROM USERS WHERE type = 2 AND document = " + user.getDocument();
             }
 
             ResultSet res = stmt.executeQuery(sql);
@@ -207,4 +208,43 @@ public class UserRepository implements Repository<Integer, User> {
             }
         }
     }
+
+    public User getUserById(Integer id) throws SQLException {
+        Connection conn = null;
+        try {
+            conn = ConnectionDB.getConnection();
+
+            Statement stmt = conn.createStatement();
+
+            String sql = "SELECT * FROM USERS WHERE id_user = " + id;
+
+            ResultSet res = stmt.executeQuery(sql);
+
+            while (res.next()) {
+                User user = new User();
+                user.setIdUser(res.getInt("id_user"));
+                user.setName(res.getString("name"));
+                user.setEmail(res.getString("email"));
+                user.setPassword(res.getString("password"));
+                user.setType(res.getInt("type"));
+                user.setDocument(res.getString("document"));
+
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException(e.getCause());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
+    }
 }
+
