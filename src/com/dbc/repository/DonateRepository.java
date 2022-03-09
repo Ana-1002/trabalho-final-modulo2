@@ -33,7 +33,7 @@ public class DonateRepository implements Repository<Integer, Donate> {
             donate.setId_donate(nextId);
 
             String sql = "INSERT INTO DONATE\n" +
-                    "(ID_DONATE, ID_REQUEST, DONATOR_NOME, DONATOR_EMAIL, DONATOR_VALUE, DONATOR_DESCRIPTION)\n" +
+                    "(ID_DONATE, ID_REQUEST, DONATOR_NAME, DONATOR_EMAIL, DONATE_VALUE, DONATE_DESCRIPTION)\n" +
                     "VALUES(?, ?, ?, ?, ?, ?)\n";
 
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -67,7 +67,7 @@ public class DonateRepository implements Repository<Integer, Donate> {
         try {
             con = ConnectionDB.getConnection();
 
-            String sql = "DELETE FROM PESSOA WHERE id_donate = ?";
+            String sql = "DELETE FROM DONATE WHERE id_donate = ?";
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -99,22 +99,21 @@ public class DonateRepository implements Repository<Integer, Donate> {
 
             StringBuilder sql = new StringBuilder();
             sql.append("UPDATE DONATE SET ");
-            sql.append(" ID_DONATE = ?,");
             sql.append(" ID_REQUEST = ?,");
-            sql.append(" DONATOR_NOME = ? ,");
+            sql.append(" DONATOR_NAME = ? ,");
             sql.append(" DONATOR_EMAIL = ? ,");
-            sql.append(" DONATOR_VALUE = ? ,");
-            sql.append(" DONATOR_DESCRIPTION = ? ,");
+            sql.append(" DONATE_VALUE = ? ,");
+            sql.append(" DONATE_DESCRIPTION = ? ,");
             sql.append(" WHERE ID_DONATE = ?");
 
             PreparedStatement stmt = con.prepareStatement(sql.toString());
 
-            stmt.setInt(1, donate.getId_donate());
-            stmt.setInt(2, donate.getRequest().getIdRequest());
-            stmt.setString(3, donate.getDonator_name());
-            stmt.setString(4, donate.getDonator_email());
-            stmt.setDouble(5, donate.getDonate_value());
-            stmt.setString(6, donate.getDescription());
+            stmt.setInt(1, donate.getRequest().getIdRequest());
+            stmt.setString(2, donate.getDonator_name());
+            stmt.setString(3, donate.getDonator_email());
+            stmt.setDouble(4, donate.getDonate_value());
+            stmt.setString(5, donate.getDescription());
+            stmt.setInt(6,id);
 
             // Executa-se a consulta
             int res = stmt.executeUpdate();

@@ -14,9 +14,9 @@ public class BankAccountService {
         bank_account_repository= new BankAccountRepository();
     }
 
-    public void addBankAccount(BankAccount bankAccount){
+    public void add(BankAccount bankAccount){
         try {
-            if (!testIfExist(bankAccount)){
+            if (testIfExist(bankAccount)){
                 throw new Exception("Conta já Existente!");
             }
         } catch (SQLException e) {
@@ -28,14 +28,14 @@ public class BankAccountService {
 
     public boolean testIfExist(BankAccount bankAccount) throws SQLException {
         for (BankAccount bankAccountList : new BankAccountRepository().list()) {
-            if (bankAccountList.equals(bankAccount)){
+            if (bankAccountList.getAccount_number().equals(bankAccount.getAccount_number())){
                 return true;
             }
         }
         return false;
     }
 
-    public void removeBankAccount(Integer id){
+    public void remove(Integer id){
         try {
             boolean removed = bank_account_repository.remove(id);
             System.out.println("Conta removida? " + removed + "| com id=" + id);
@@ -45,7 +45,7 @@ public class BankAccountService {
         }
     }
 
-    public void updateBankAccount(Integer id, BankAccount bankAccount){
+    public void update(Integer id, BankAccount bankAccount){
         try {
             boolean updated = bank_account_repository.update(id, bankAccount);
             System.out.println("Conta editada? " + updated + "| com id=" + id);
@@ -54,7 +54,7 @@ public class BankAccountService {
         }
     }
 
-    public void listBankAccount() {
+    public void list() {
         try {
             List<BankAccount> list = bank_account_repository.list();
             list.forEach(System.out::println);

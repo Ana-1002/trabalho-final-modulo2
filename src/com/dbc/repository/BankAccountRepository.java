@@ -96,20 +96,19 @@ public class BankAccountRepository implements Repository<Integer, BankAccount> {
 
             StringBuilder sql = new StringBuilder();
             sql.append("UPDATE BANK_ACCOUNT SET ");
-            sql.append(" ID_BANK_ACCOUNT = ?,");
             sql.append(" ACCOUNT_NUMBER = ?,");
             sql.append(" AGENCY = ? ,");
-            sql.append(" WHERE id_bank_account = ?");
+            sql.append(" WHERE ID_BANK_ACCOUNT = ?");
 
             PreparedStatement stmt = con.prepareStatement(sql.toString());
 
-            stmt.setInt(1, bank_account.getId_bank_account());
-            stmt.setString(2, bank_account.getAccount_number());
-            stmt.setString(3, bank_account.getAgency());
+            stmt.setString(1, bank_account.getAccount_number());
+            stmt.setString(2, bank_account.getAgency());
+            stmt.setInt(3,id);
 
             // Executa-se a consulta
             int res = stmt.executeUpdate();
-            System.out.println("editarBank_account.res=" + res);
+            System.out.println("editarBank_Account.res=" + res);
 
             return res > 0;
         } catch (SQLException e) {
@@ -195,11 +194,30 @@ public class BankAccountRepository implements Repository<Integer, BankAccount> {
         return null;
     }
     public static void main(String[] args) throws SQLException {
-//    BankAccountRepository bankAccountRepository = new BankAccountRepository();
-//    bankAccountRepository.list().forEach(System.out::println);
+    BankAccountRepository bankAccountRepository = new BankAccountRepository();
 //
-    DonateRepository donateRepository = new DonateRepository();
-    donateRepository.list();
-    //bankAccountRepository.remove(6);
-    }
+//
+//    DonateRepository donateRepository = new DonateRepository();
+//    donateRepository.list().forEach(System.out::println);
+//    donateRepository.remove(1 );
+//    Donate donate=new Donate();
+//    donate.setDonator_name("ana");
+//    donate.setDonator_email("ana@gmail");
+//    donate.setDonate_value(100.0);
+//    donate.setDescription(null);
+//    donate.setRequest(new RequestRepository().getRequestById(1));
+//    donateRepository.add(donate);
+//
+//        bankAccountRepository.remove(12);
+        BankAccount bankAccount = new BankAccount();
+        bankAccount.setId_bank_account(2);
+        bankAccount.setAccount_number("5900498");
+        bankAccount.setAgency("1789");
+        //adicionando mesmo quando tem uma igual
+//        bankAccountRepository.add(bankAccount);
+//        bankAccountRepository.list().forEach(System.out::println);
+        //não da update
+      bankAccountRepository.update(2, bankAccount);
+        bankAccountRepository.list().forEach(System.out::println);
+   }
 }

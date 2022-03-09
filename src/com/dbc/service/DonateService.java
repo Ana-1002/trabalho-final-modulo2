@@ -14,7 +14,7 @@ public class DonateService {
         donateRepository= new DonateRepository();
     }
 
-    public void addDonate(Donate donate){
+    public void add(Donate donate){
         try {
             if (!testDonate(donate)){
                 throw new Exception("Não foi possível realizar a doação");
@@ -33,7 +33,7 @@ public class DonateService {
         return false;
     }
 
-    public void removeBankAccount(Integer id){
+    public void remove(Integer id){
         try {
             boolean removed = donateRepository.remove(id);
             System.out.println("donate removida? " + removed + "| com id=" + id);
@@ -43,7 +43,7 @@ public class DonateService {
         }
     }
 
-    public void updateBankAccount(Integer id, Donate donate){
+    public void update(Integer id, Donate donate){
         try {
             boolean updated = donateRepository.update(id, donate);
             System.out.println("Donate editada? " + updated + "| com id=" + id);
@@ -52,7 +52,7 @@ public class DonateService {
         }
     }
 
-    public void listBankAccount() {
+    public void list() {
         try {
             List<Donate> list = donateRepository.list();
             list.forEach(System.out::println);
