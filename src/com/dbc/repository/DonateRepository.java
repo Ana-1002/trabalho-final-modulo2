@@ -46,6 +46,7 @@ public class DonateRepository implements Repository<Integer, Donate> {
             stmt.setString(6, donate.getDescription());
 
             int res = stmt.executeUpdate();
+            boolean incremented = new RequestRepository().incrementReachedValue(donate.getRequest().getIdRequest(), donate.getDonate_value());
             System.out.println("adicionarDonate.res=" + res);
             return donate;
         } catch (SQLException e) {

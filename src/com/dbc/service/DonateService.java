@@ -1,6 +1,8 @@
 package com.dbc.service;
+import com.dbc.entities.BankAccount;
 import com.dbc.entities.Donate;
 import com.dbc.entities.Request;
+import com.dbc.repository.BankAccountRepository;
 import com.dbc.repository.DonateRepository;
 import com.dbc.repository.RequestRepository;
 
@@ -16,7 +18,7 @@ public class DonateService {
 
     public void add(Donate donate){
         try {
-            if (!testDonate(donate)){
+            if (testDonate(donate, donate.getRequest().getIdRequest())){
                 throw new Exception("Não foi possível realizar a doação");
             }
             donateRepository.add(donate);
@@ -27,8 +29,9 @@ public class DonateService {
         }
     }
 
-    public boolean testDonate (Donate donate) throws SQLException {
-            if (donate.getRequest().getGoal()==donate.getRequest().getReachedValue()){
+    public boolean testDonate (Donate donate, Integer id) throws SQLException {
+        Request request = new RequestRepository().getRequestById(id);
+            if (request.getReachedValue()>= request.getGoal()){
                 return true;
             }
         return false;

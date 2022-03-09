@@ -3,6 +3,7 @@ package com.dbc.repository;
 import com.dbc.entities.BankAccount;
 import com.dbc.entities.Donate;
 import com.dbc.service.BankAccountService;
+import com.dbc.service.DonateService;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -195,19 +196,17 @@ public class BankAccountRepository implements Repository<Integer, BankAccount> {
         return null;
     }
     public static void main(String[] args) throws SQLException {
-//    BankAccountRepository bankAccountRepository = new BankAccountRepository();
-//
-//
-    DonateRepository donateRepository = new DonateRepository();
-    donateRepository.list().forEach(System.out::println);
-//    donateRepository.remove(1 );
+        // DonateRepository donateRepository = new DonateRepository();
+//    donateRepository.list().forEach(System.out::println);
+    //donateRepository.remove(1);
     Donate donate=new Donate();
     donate.setDonator_name("ana");
     donate.setDonator_email("ana@gmail");
-    donate.setDonate_value(100.0);
+    donate.setDonate_value(1000.0);
     donate.setDescription(null);
-    donate.setRequest(new RequestRepository().getRequestById(1));
-    donateRepository.add(donate);
+    donate.setRequest(new RequestRepository().getRequestById(2));
+    DonateService donateService = new DonateService();
+    donateService.add(donate);
 
 //        bankAccountRepository.remove(12);
 //        BankAccount bankAccount = new BankAccount();
