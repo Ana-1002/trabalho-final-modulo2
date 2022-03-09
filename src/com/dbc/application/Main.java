@@ -6,11 +6,9 @@ import com.dbc.entities.Donate;
 import com.dbc.entities.Request;
 import com.dbc.entities.user.User;
 import com.dbc.repository.CategoryRepository;
+import com.dbc.repository.RequestRepository;
 import com.dbc.repository.UserRepository;
-import com.dbc.service.BankAccountService;
-import com.dbc.service.CategoryService;
-import com.dbc.service.RequestService;
-import com.dbc.service.UserService;
+import com.dbc.service.*;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -199,15 +197,33 @@ public class Main {
         new RequestService().add(request);
     }
 
-    public static void donateForm(){
+    public static void donateForm() throws SQLException {
         Scanner scanner= new Scanner(System.in);
         Donate donate = new Donate();
+
+        new RequestService().list();
         System.out.println("Informe o Id da vakinha");
-        donate.setRequest(scanner.nextInt());
+        Integer id = scanner.nextInt();
+        scanner.nextLine();
+
+        Request r = new RequestRepository().getRequestById(id);
+
+        donate.setRequest(r);
         System.out.println("Informe seu nome");
+        donate.setDonator_name(scanner.nextLine());
+
         System.out.println("Informe seu email");
+        donate.setDonator_email(scanner.nextLine());
+
         System.out.println("Informe o valor a ser doado");
+        Double value = scanner.nextDouble();
+        scanner.nextLine();
+        donate.setDonate_value(value);
+
         System.out.println("Informe a descrição");
+        donate.setDescription(scanner.nextLine());
+
+        new DonateService().add(donate);
     }
 
 
