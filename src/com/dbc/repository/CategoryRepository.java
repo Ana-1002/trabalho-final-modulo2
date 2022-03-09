@@ -156,34 +156,6 @@ public class CategoryRepository implements Repository<Integer, Category> {
         return categories;
     }
 
-    public boolean nameAlreadyExists(String name) throws SQLException {
-        Connection conn = null;
-        try {
-            conn = ConnectionDB.getConnection();
-
-            Statement stmt = conn.createStatement();
-
-            String sql = "SELECT * FROM CATEGORY WHERE LOWER(name) = " + name + ";";
-
-            ResultSet res = stmt.executeQuery(sql);
-
-            if (res.next()) {
-                return true;
-            }
-        } catch (SQLException e) {
-            throw new SQLException(e.getCause());
-        } finally {
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return false;
-    }
-
     public Category getCategoryById(Integer id) throws SQLException {
         Connection conn = null;
         try {
@@ -214,7 +186,6 @@ public class CategoryRepository implements Repository<Integer, Category> {
                 e.printStackTrace();
             }
         }
-        //TODO - Conferir tratamento
         return null;
     }
 }
